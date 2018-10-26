@@ -7,8 +7,8 @@ Original game: http://www.freewebarcade.com/game/pepsi-pinball
 ## Controls
 
 ### Gameplay
-* LEFT ARROW - Move left stick
-* RIGHT ARROW - Move right stick
+* LEFT ARROW - Move left flipper
+* RIGHT ARROW - Move right flippers
 * DOWN ARROW - Throw ball to start a game.
 
 ### Debug features

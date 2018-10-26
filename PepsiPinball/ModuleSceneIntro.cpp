@@ -9,7 +9,7 @@
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	circle = box = rick = NULL;
+	
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -26,7 +26,16 @@ bool ModuleSceneIntro::Start()
 	circle = App->textures->Load("pinball/wheel.png"); 
 	box = App->textures->Load("pinball/crate.png");
 	rick = App->textures->Load("pinball/rick_head.png");
+	background = App->textures->Load("pinball/test.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+
+	// Each score increaser is given a value
+	collisionScore = 500;
+	flagScore = 1000;
+	cowboyScore = 1000;
+	pathScore = 250000;
+
+	playerScore = 0;
 
 	return ret;
 }
@@ -35,6 +44,7 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
+	App->textures->Unload(background);
 
 	return true;
 }
@@ -42,6 +52,18 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
+	App->renderer->Blit(background, 0, 0);
+
+	// Move right flippers
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+		
+	}
+
+	// Move left flipper
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+		
+	}
+
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));

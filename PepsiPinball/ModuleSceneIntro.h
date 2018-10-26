@@ -21,9 +21,19 @@ public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> ricks;
-
-	SDL_Texture* circle;
-	SDL_Texture* box;
-	SDL_Texture* rick;
+	
+	SDL_Texture* background = nullptr;
+	SDL_Texture* circle = nullptr;
+	SDL_Texture* box = nullptr;
+	SDL_Texture* rick = nullptr;
 	uint bonus_fx;
+
+	// Total score
+	uint playerScore;
+
+	// Score modifyers
+	uint collisionScore;
+	uint flagScore;
+	uint cowboyScore;
+	uint pathScore;
 };
