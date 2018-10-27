@@ -27,9 +27,11 @@ bool ModuleSceneIntro::Start()
 	circle = App->textures->Load("Assets/ball.png");
 	box = App->textures->Load("pinball/crate.png");
 	rick = App->textures->Load("pinball/rick_head.png");
-	background = App->textures->Load("Assets/Map.png");
-	rocks = App->textures->Load("Assets/MapCover.png");
-	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+	background = App->textures->Load("Assets/Textures/Map.png");	
+
+	initialSong = App->audio->LoadFx("Assets/SoundFX/initialSong.wav");
+	touchingHat = App->audio->LoadFx("Assets/SoundFX/touchingHat.wav");
+	beatingAllCowboys = App->audio->LoadFx("Assets/SoundFX/beatingAllCowboys.wav");
 
 	// Each score increaser is given a value
 	collisionScore = 500;
@@ -46,7 +48,6 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
-	App->textures->Unload(rocks);
 	App->textures->Unload(background);
 
 	return true;
@@ -56,7 +57,6 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(background, 0, 0);
-	App->renderer->Blit(rocks, 14, 66);
 
 	// Move right flippers
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
@@ -162,5 +162,5 @@ update_status ModuleSceneIntro::Update()
 
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
-	App->audio->PlayFx(bonus_fx);
+	//App->audio->PlayFx(bonus_fx);
 }

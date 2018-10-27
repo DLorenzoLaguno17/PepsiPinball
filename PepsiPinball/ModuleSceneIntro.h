@@ -22,12 +22,16 @@ public:
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> ricks;
 	
+	// Textures
 	SDL_Texture* background = nullptr;
-	SDL_Texture* rocks = nullptr;
 	SDL_Texture* circle = nullptr;
 	SDL_Texture* box = nullptr;
 	SDL_Texture* rick = nullptr;
-	uint bonus_fx;
+
+	// Audios
+	uint touchingHat;
+	uint initialSong;
+	uint beatingAllCowboys;
 
 	// Total score
 	uint playerScore;
