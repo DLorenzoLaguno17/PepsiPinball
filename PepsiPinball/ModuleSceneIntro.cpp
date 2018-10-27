@@ -4,6 +4,7 @@
 #include "ModuleSceneIntro.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
+#include "ModulePlayer.h"
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 
@@ -24,10 +25,10 @@ bool ModuleSceneIntro::Start()
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
 	//circle = App->textures->Load("pinball/wheel.png");
-	circle = App->textures->Load("Assets/ball.png");
 	box = App->textures->Load("pinball/crate.png");
 	rick = App->textures->Load("pinball/rick_head.png");
-	background = App->textures->Load("Assets/Textures/Map.png");	
+
+	background = App->textures->Load("Assets/Textures/Map.png");
 
 	initialSong = App->audio->LoadFx("Assets/SoundFX/initialSong.wav");
 	touchingHat = App->audio->LoadFx("Assets/SoundFX/touchingHat.wav");
@@ -133,7 +134,7 @@ update_status ModuleSceneIntro::Update()
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
-		App->renderer->Blit(circle, x, y, NULL, 1.0f, c->data->GetRotation());
+		App->renderer->Blit(App->player->ball, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
 
