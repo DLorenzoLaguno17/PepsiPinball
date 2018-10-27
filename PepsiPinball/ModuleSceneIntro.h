@@ -23,6 +23,7 @@ public:
 	p2List<PhysBody*> ricks;
 	
 	SDL_Texture* background = nullptr;
+	SDL_Texture* rocks = nullptr;
 	SDL_Texture* circle = nullptr;
 	SDL_Texture* box = nullptr;
 	SDL_Texture* rick = nullptr;

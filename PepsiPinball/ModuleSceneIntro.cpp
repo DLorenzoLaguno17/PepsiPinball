@@ -23,10 +23,12 @@ bool ModuleSceneIntro::Start()
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	circle = App->textures->Load("pinball/wheel.png"); 
+	//circle = App->textures->Load("pinball/wheel.png");
+	circle = App->textures->Load("Assets/ball.png");
 	box = App->textures->Load("pinball/crate.png");
 	rick = App->textures->Load("pinball/rick_head.png");
-	background = App->textures->Load("pinball/test.png");
+	background = App->textures->Load("Assets/Map.png");
+	rocks = App->textures->Load("Assets/MapCover.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
 	// Each score increaser is given a value
@@ -44,6 +46,7 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
+	App->textures->Unload(rocks);
 	App->textures->Unload(background);
 
 	return true;
@@ -53,6 +56,7 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(background, 0, 0);
+	App->renderer->Blit(rocks, 14, 66);
 
 	// Move right flippers
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
@@ -66,7 +70,7 @@ update_status ModuleSceneIntro::Update()
 
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));
+		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 15));
 		circles.getLast()->data->listener = this;
 	}
 
