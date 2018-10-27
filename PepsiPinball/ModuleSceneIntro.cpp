@@ -10,7 +10,20 @@
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	
+	// Triangles at the top of the map
+	flag1 = { 67, 6, 64, 36 }; 
+	flag1_active = { 2, 6, 64, 36 };
+	flag2 = { 75, 57, 50, 41 }; 
+	flag2_active = { 17, 57, 50, 41 };
+	flag3 = { 67, 117, 38, 46 };
+	flag3_active = { 15, 117, 38, 46 };
+
+	activeMultiplier_x2 = { 63, 221, 26, 19 };
+	activeMultiplier_x4 = { 27, 221, 26, 19 };
+	activeMultiplier_x6 = { 63, 191, 26, 19 };
+	activeMultiplier_x8 = { 101, 220, 26, 19 };
+	activeMultiplier_x10 = { 28, 191, 26, 19 };
+	activeMultiplier_hold = { 101, 190, 26, 19 };
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -24,11 +37,13 @@ bool ModuleSceneIntro::Start()
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	//circle = App->textures->Load("pinball/wheel.png");
 	box = App->textures->Load("pinball/crate.png");
 	rick = App->textures->Load("pinball/rick_head.png");
 
 	background = App->textures->Load("Assets/Textures/Map.png");
+	leftBarrels = App->textures->Load("Assets/Textures/leftBarrels.png");
+	bonus = App->textures->Load("Assets/Textures/bonus.png");
+	idleMultipliers = App->textures->Load("Assets/Textures/idleMultipliers.png");
 
 	initialSong = App->audio->LoadFx("Assets/SoundFX/initialSong.wav");
 	touchingHat = App->audio->LoadFx("Assets/SoundFX/touchingHat.wav");
@@ -42,6 +57,8 @@ bool ModuleSceneIntro::Start()
 
 	playerScore = 0;
 
+	//App->audio->PlayFx(initialSong);
+
 	return ret;
 }
 
@@ -49,6 +66,8 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
+	App->textures->Unload(bonus);
+	App->textures->Unload(leftBarrels);
 	App->textures->Unload(background);
 
 	return true;
@@ -58,6 +77,28 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(background, 0, 0);
+	App->renderer->Blit(leftBarrels, 146, 340);
+
+	//Blitting bonuses
+	App->renderer->Blit(idleMultipliers, 193, 233);
+
+	//if(x4)
+		App->renderer->Blit(bonus, 310, 432, &activeMultiplier_x4);
+
+	if(activatedFlag1)
+		App->renderer->Blit(bonus, 409, 102, &flag1_active);
+	else
+		App->renderer->Blit(bonus, 409, 102, &flag1);
+
+	if (activatedFlag2)
+		App->renderer->Blit(bonus, 455, 110, &flag2_active);
+	else
+		App->renderer->Blit(bonus, 455, 110, &flag2);
+
+	if (activatedFlag3)
+		App->renderer->Blit(bonus, 500, 118, &flag3_active);
+	else
+		App->renderer->Blit(bonus, 500, 118, &flag3);
 
 	// Move right flippers
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {

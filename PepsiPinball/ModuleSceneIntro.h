@@ -24,8 +24,38 @@ public:
 	
 	// Textures
 	SDL_Texture* background = nullptr;
+	SDL_Texture* leftBarrels = nullptr;
+	SDL_Texture* idleMultipliers = nullptr;
+	SDL_Texture* bonus = nullptr;
+
 	SDL_Texture* box = nullptr;
 	SDL_Texture* rick = nullptr;
+
+	//Bonus 
+	SDL_Rect multiplier;
+	SDL_Rect activeMultiplier_x2;
+	SDL_Rect activeMultiplier_x4;
+	SDL_Rect activeMultiplier_x6;
+	SDL_Rect activeMultiplier_x8;
+	SDL_Rect activeMultiplier_x10;
+	SDL_Rect activeMultiplier_hold;
+
+	bool x4 = false;
+	bool x6 = false;
+	bool x8 = false;
+	bool x10 = false;
+	bool hold = false;
+
+	SDL_Rect flag1;
+	SDL_Rect flag1_active;
+	SDL_Rect flag2;
+	SDL_Rect flag2_active;
+	SDL_Rect flag3;
+	SDL_Rect flag3_active;
+
+	bool activatedFlag1 = false;
+	bool activatedFlag2 = false;
+	bool activatedFlag3 = false;
 
 	// Audios
 	uint touchingHat;
