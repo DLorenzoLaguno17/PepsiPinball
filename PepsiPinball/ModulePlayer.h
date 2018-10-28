@@ -47,6 +47,7 @@ public:
 	uint loseSound;
 	uint touchingHat;
 	uint wolfSound;
+	uint newBallSound;
 
 	uint flipperSound;
 	bool playedRight = false;

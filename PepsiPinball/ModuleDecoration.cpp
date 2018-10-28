@@ -45,10 +45,7 @@ update_status ModuleDecoration::Update()
 
 	if (App->player->balls == 6) {
 		App->renderer->Blit(scoreScreen, 170, 100);
-
-		sprintf_s(App->player->scoreText, 10, "%7d", App->player->playerScore);
-		App->fonts->BlitText(280, 130, App->player->fontScore, App->player->scoreText);
-
+		
 		sprintf_s(App->player->scoreText, 10, "%7d", App->player->highScore);
 		App->fonts->BlitText(280, 160, App->player->fontScore, App->player->scoreText);
 	}

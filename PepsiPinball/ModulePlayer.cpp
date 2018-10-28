@@ -39,13 +39,14 @@ bool ModulePlayer::Start()
 
 	// Audios are loaded
 	flipperSound =  App->audio->LoadFx("Assets/SoundFX/flipper.wav");
-	horseSound = App->audio->LoadFx("Assets/SoundFX/lose.wav");
+	horseSound = App->audio->LoadFx("Assets/SoundFX/horse.wav");
 	thrillingSound = App->audio->LoadFx("Assets/SoundFX/thrill.wav");
 	henSound = App->audio->LoadFx("Assets/SoundFX/hen.wav");
 	loseSound = App->audio->LoadFx("Assets/SoundFX/lose.wav"); 
 	touchingHat = App->audio->LoadFx("Assets/SoundFX/touchingHat.wav");
 	wolfSound = App->audio->LoadFx("Assets/SoundFX/wolf.wav");
 	barrelSound = App->audio->LoadFx("Assets/SoundFX/barrel.wav");
+	newBallSound = App->audio->LoadFx("Assets/SoundFX/newBall.wav");
 
 	// Fonts are loaded
 	fontScore = App->fonts->Load("Assets/Textures/Fonts/fontScore.png", "0123845679", 2);
@@ -59,7 +60,7 @@ bool ModulePlayer::Start()
 
 	playerScore = 0;
 
-	startingPosition = {650, 360};
+	startingPosition = {620, 200};
 
 	addBall(startingPosition.x, startingPosition.y);
 	putLeftFlipper();
@@ -130,7 +131,7 @@ update_status ModulePlayer::Update()
 		delete ball;
 		ball->body = nullptr;
 		addBall(startingPosition.x, startingPosition.y);
-		App->audio->PlayFx(loseSound);
+		//App->audio->PlayFx(loseSound);
 		
 		// Calculing final score
 		if (App->scene_intro->x10)
@@ -160,6 +161,8 @@ update_status ModulePlayer::Update()
 		App->scene_intro->activatedFlag1 = false;
 		App->scene_intro->activatedFlag2 = false;
 		App->scene_intro->activatedFlag3 = false;
+
+		App->audio->PlayFx(newBallSound);
 
 		playerScore = 0;
 		balls++;
