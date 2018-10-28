@@ -26,6 +26,7 @@ public:
 	SDL_Texture* background = nullptr;
 	SDL_Texture* leftBarrels = nullptr;
 	SDL_Texture* idleMultipliers = nullptr;
+	SDL_Texture* Barrels = nullptr;
 	SDL_Texture* bonus = nullptr;
 
 	SDL_Texture* box = nullptr;

@@ -54,15 +54,15 @@ int MapColl[128] = {
 	603, 183,
 	590, 156,
 	573, 140,
-	543, 130,
+	543, 135,
 	537, 142,
 	538, 160,
 	544, 185,
 	544, 231,
 	560, 266,
 	573, 278,
-	584, 307,
-	597, 366,
+	590, 307,
+	600, 366,
 	596, 389,
 	588, 404,
 	579, 412,
@@ -79,6 +79,34 @@ int MapColl[128] = {
 	0, 0,
 
 };
+
+int Isle[18] = {
+	516, 270,
+	508, 339,
+	497, 385,
+	505, 392,
+	524, 395,
+	550, 390,
+	565, 379,
+	567, 360,
+
+};
+
+int BarrelKicker1[10] = {
+	150, 350,
+	205, 347,
+	237, 410,
+	218, 415,
+	145, 374,
+};
+
+int BarrelKicker2[8] = {
+	390, 425, 
+	465, 385, 
+	465, 345,
+	380, 395,
+};
+
 ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	world = NULL;
@@ -125,7 +153,6 @@ bool ModulePhysics::Start()
 	int y = SCREEN_HEIGHT / 1.5f;
 	int width = 200;
 	int height = 200;
-	int * Mapcollider = MapColl;
 	b2BodyDef body;
 	body.type = b2_staticBody;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
@@ -138,7 +165,13 @@ bool ModulePhysics::Start()
 	//fixture.shape = &box;
 	//fixture.density = 1.0f;
 
-	CreateChain(0, 0, Mapcollider, 128, b2_staticBody);
+	CreateChain(0, 0, MapColl, 128, b2_staticBody, 0);
+
+	CreateChain(0, 0, Isle, 16, b2_staticBody, 0);
+
+	CreateChain(0, 0, BarrelKicker1, 10, b2_staticBody, 7);
+
+	CreateChain(0, 0, BarrelKicker2, 8, b2_staticBody, 7);
 
 	//b->CreateFixture(&fixture);
 
@@ -240,7 +273,7 @@ PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int heig
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size, b2BodyType type)
+PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size, b2BodyType type, int res)
 {
 	b2BodyDef body;
 	body.type = type;
@@ -261,6 +294,8 @@ PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size, b2Body
 
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
+	fixture.restitution = res;
+
 
 	b->CreateFixture(&fixture);
 

@@ -43,6 +43,7 @@ bool ModuleSceneIntro::Start()
 	background = App->textures->Load("Assets/Textures/Map.png");
 	leftBarrels = App->textures->Load("Assets/Textures/leftBarrels.png");
 	bonus = App->textures->Load("Assets/Textures/bonus.png");
+	Barrels = App->textures->Load("Assets/Textures/rightBarrels.png");
 	idleMultipliers = App->textures->Load("Assets/Textures/idleMultipliers.png");
 
 	initialSong = App->audio->LoadFx("Assets/SoundFX/initialSong.wav");
@@ -69,7 +70,7 @@ bool ModuleSceneIntro::CleanUp()
 	App->textures->Unload(bonus);
 	App->textures->Unload(leftBarrels);
 	App->textures->Unload(background);
-
+	App->textures->Unload(Barrels);
 	return true;
 }
 
@@ -82,6 +83,7 @@ update_status ModuleSceneIntro::Update()
 	//Blitting bonuses
 	App->renderer->Blit(idleMultipliers, 193, 233);
 
+	App->renderer->Blit(Barrels, 379, 347);
 	//if(x4)
 		App->renderer->Blit(bonus, 310, 432, &activeMultiplier_x4);
 
@@ -112,7 +114,7 @@ update_status ModuleSceneIntro::Update()
 
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 15));
+		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 12));
 		circles.getLast()->data->listener = this;
 	}
 
@@ -159,7 +161,7 @@ update_status ModuleSceneIntro::Update()
 			30, 62
 		};
 
-		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64, b2_dynamicBody));
+		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64, b2_dynamicBody, 0));
 	}
 
 	// Prepare for raycast ------------------------------------------------------
