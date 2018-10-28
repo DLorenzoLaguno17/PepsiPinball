@@ -20,7 +20,7 @@ bool ModuleDecoration::Start()
 	bool ret = true;	
 
 	mapInteractions = App->textures->Load("Assets/Textures/bonus.png");
-	decoration = App->textures->Load("Assets/Textures/decoration.png");
+	decoration = App->textures->Load("Assets/Textures/decoration1.png");
 
 	return ret;
 }
@@ -38,7 +38,7 @@ bool ModuleDecoration::CleanUp()
 // Update: draw background
 update_status ModuleDecoration::Update()
 {
-	App->renderer->Blit(decoration, 53, 81);
+	App->renderer->Blit(decoration, 26, 82);
 
 	//All cowoys
 	//App->renderer->Blit(cowboy, 242, 100);
