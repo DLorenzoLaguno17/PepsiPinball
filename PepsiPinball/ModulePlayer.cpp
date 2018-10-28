@@ -56,7 +56,7 @@ bool ModulePlayer::Start()
 	flagScore = 1000;
 	cowboyScore = 1000;
 	pathScore = 250000;
-	carruageScore = 500000;
+	wagonScore = 500000;
 
 	playerScore = 0;
 
@@ -307,8 +307,8 @@ void ModulePlayer::addBall(uint x, uint y) {
 }
 
 void ModulePlayer::createSensors() {
-	// Sensor for the carruage
-	carruageSensor = App->physics->CreateRectangleSensor( 135, 255, 15, 15);
+	// Sensor for the wagon
+	wagonSensor = App->physics->CreateRectangleSensor( 135, 255, 15, 15);
 	
 	// Sensors for the path
 	pathSensor = App->physics->CreateRectangleSensor(550, 275, 15, 15);
@@ -330,8 +330,8 @@ void ModulePlayer::createSensors() {
 
 void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 	
-	if (bodyB == carruageSensor) {
-		playerScore += carruageScore;
+	if (bodyB == wagonSensor) {
+		playerScore += wagonScore;
 		App->audio->PlayFx(thrillingSound);
 		App->audio->PlayFx(henSound);
 	}

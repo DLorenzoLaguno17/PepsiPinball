@@ -66,7 +66,7 @@ public:
 	uint flagScore;
 	uint cowboyScore;
 	uint pathScore;
-	uint carruageScore;
+	uint wagonScore;
 
 	iPoint startingPosition;
 	iPoint position;
@@ -74,7 +74,7 @@ public:
 
 private:
 	// Sensors
-	PhysBody* carruageSensor = nullptr;
+	PhysBody* wagonSensor = nullptr;
 	PhysBody* pathSensor = nullptr;
 	PhysBody* barrelSensorRight = nullptr;
 	PhysBody* barrelSensorLeft = nullptr;

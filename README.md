@@ -22,5 +22,11 @@ Besides, in the original game you gather the score of all the five games. In our
 * Press 1 to create a ball in the position of the mouse.
 * Left click on the ball and drag it around the map to test the colliders.
 
+## Combos
+
+Every time you touch with the ball ont of the three triangles of the ground in the upper side of the map, you increase your bonus. This bonus is a multiplier wich increases your score at the end of the game. The maximum you can get is a x10.
+
+You also have a lot of extra score if you manage to enter in the canyon or into the wagon at the left side of the map.
+
 This game has been created by Rafel Brau and Daniel Lorenzo.
 Licensed under the [MIT License](LICENSE).
