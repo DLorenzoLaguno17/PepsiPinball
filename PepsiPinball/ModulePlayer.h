@@ -76,6 +76,9 @@ private:
 	PhysBody* hatSensor1 = nullptr;
 	PhysBody* hatSensor2 = nullptr;
 	PhysBody* hatSensor3 = nullptr;
+	PhysBody* flagSensor1 = nullptr;
+	PhysBody* flagSensor2 = nullptr;
+	PhysBody* flagSensor3 = nullptr;
 
 	// Joints
 	PhysBody* propeller = nullptr;

@@ -16,6 +16,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
+	void setBonuses();
 
 public:
 	p2List<PhysBody*> circles;
@@ -46,6 +47,7 @@ public:
 	bool x8 = false;
 	bool x10 = false;
 	bool hold = false;
+	uint bonuses;
 
 	SDL_Rect flag1;
 	SDL_Rect flag1_active;

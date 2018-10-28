@@ -264,19 +264,19 @@ void ModulePlayer::addBall(uint x, uint y) {
 void ModulePlayer::createSensors() {
 	// Sensor for the carruage
 	carruageSensor = App->physics->CreateRectangleSensor( 165, 245, 15, 15);
-	carruageSensor->listener = this;
 	
 	// Sensors for the path
-	pathSensor = App->physics->CreateRectangleSensor(540, 265, 15, 15);
-	carruageSensor->listener = this;
+	pathSensor = App->physics->CreateRectangleSensor(550, 275, 15, 15);
 
 	// Sensors for the hats
 	hatSensor1 = App->physics->CreateRectangleSensor(418, 165, 40, 30);
-	hatSensor1->listener = this;
-	hatSensor2 = App->physics->CreateRectangleSensor(420, 120, 25, 25);
-	hatSensor2->listener = this;
-	hatSensor3 = App->physics->CreateRectangleSensor(450, 100, 25, 25);
-	hatSensor3->listener = this;
+	hatSensor2 = App->physics->CreateRectangleSensor(422, 205, 40, 30);
+	hatSensor3 = App->physics->CreateRectangleSensor(473, 183, 40, 30);
+
+	// Sensors for the flags
+	flagSensor1 = App->physics->CreateRectangleSensor(440, 114, 10, 10);
+	flagSensor2 = App->physics->CreateRectangleSensor(475, 125, 10, 10);
+	flagSensor3 = App->physics->CreateRectangleSensor(515, 135, 10, 10);
 }
 
 void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
@@ -296,5 +296,17 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 	}
 	else {
 		playerScore += collisionScore;
+	}
+
+	if (!App->scene_intro->hold) {
+		if (bodyB == flagSensor1) {
+			App->scene_intro->activatedFlag1 = true;
+		}
+		if (bodyB == flagSensor2) {
+			App->scene_intro->activatedFlag2 = true;
+		}
+		if (bodyB == flagSensor3) {
+			App->scene_intro->activatedFlag3 = true;
+		}
 	}
 }

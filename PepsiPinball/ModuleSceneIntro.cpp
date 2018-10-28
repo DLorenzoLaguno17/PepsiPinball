@@ -54,6 +54,8 @@ bool ModuleSceneIntro::Start()
 	initialSong = App->audio->LoadFx("Assets/SoundFX/initialSong.wav");
 	beatingAllCowboys = App->audio->LoadFx("Assets/SoundFX/beatingAllCowboys.wav");
 
+	bonuses = 0;
+
 	App->audio->PlayFx(initialSong);
 
 	return ret;
@@ -143,7 +145,36 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
+	setBonuses();
+
 	return UPDATE_CONTINUE;
+}
+
+void ModuleSceneIntro::setBonuses() {
+
+	if (activatedFlag1 == true && activatedFlag2 == true && activatedFlag3 == true) {
+		bonuses++;
+		App->player->playerScore += App->player->flagScore;
+		activatedFlag1 = false;
+		activatedFlag2 = false;
+		activatedFlag3 = false;
+
+		switch (bonuses) {
+		case 1: x2 = true;
+			break;
+		case 2: x4 = true;
+			break;
+		case 3: x6 = true;
+			break;
+		case 4: x8 = true;
+			break;
+		case 5: x10 = true;
+			break;
+		case 6: hold = true;
+			break;
+		}
+		
+	}
 }
 
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
