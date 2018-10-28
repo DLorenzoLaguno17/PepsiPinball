@@ -192,11 +192,11 @@ bool ModulePhysics::Start()
 
 	//hats
 
-	CreateChain(0, 0, hat, 16, b2_staticBody, 3);
+	CreateChain(0, 0, hat, 16, b2_staticBody, 2);
 
-	CreateChain(4, 40, hat, 16, b2_staticBody, 3);
+	CreateChain(4, 40, hat, 16, b2_staticBody, 2);
 
-	CreateChain(55, 15, hat, 16, b2_staticBody, 3);
+	CreateChain(55, 15, hat, 16, b2_staticBody, 2);
 	
 	//cowboys
 
