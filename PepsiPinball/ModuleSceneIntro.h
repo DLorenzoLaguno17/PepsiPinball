@@ -26,11 +26,10 @@ public:
 	SDL_Texture* background = nullptr;
 	SDL_Texture* leftBarrels = nullptr;
 	SDL_Texture* idleMultipliers = nullptr;
-	SDL_Texture* Barrels = nullptr;
+	SDL_Texture* rightBarrels = nullptr;
 	SDL_Texture* bonus = nullptr;
-	SDL_Texture* Cowboy_Hat = nullptr;
-	SDL_Texture* box = nullptr;
-	SDL_Texture* rick = nullptr;
+	SDL_Texture* hat = nullptr;
+	SDL_Texture* tires = nullptr;
 
 	//Animation Cowboys
 	Animation Cowboy1;
@@ -56,8 +55,8 @@ public:
 	SDL_Rect Cowboyrect9;
 	SDL_Rect Cowboyrect10;
 	SDL_Rect Cowboyrect11;
-	//animation Hats
 
+	// Animation Hats
 	Animation Hat1;
 	Animation Hat2;
 	Animation Hat3;

@@ -28,9 +28,7 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	activeMultiplier_x10 = { 28, 191, 26, 19 };
 	activeMultiplier_hold = { 101, 190, 26, 19 };
 
-
-	//hat pushbacks
-
+	// Hat pushbacks
 
 	Hat1.PushBack(bigHat);
 	Hat1.PushBack(littleHat);
@@ -121,16 +119,14 @@ bool ModuleSceneIntro::Start()
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	box = App->textures->Load("pinball/crate.png");
-	rick = App->textures->Load("pinball/rick_head.png");
-	Cowboy_Hat = App->textures->Load("Assets/Textures/mapInteractions.png");
-	Barrels = App->textures->Load("Assets/Textures/rightBarrels.png");
-
 	// Textures are loaded
 	background = App->textures->Load("Assets/Textures/Map.png");
 	leftBarrels = App->textures->Load("Assets/Textures/leftBarrels.png");
 	bonus = App->textures->Load("Assets/Textures/bonus.png");
 	idleMultipliers = App->textures->Load("Assets/Textures/idleMultipliers.png");
+	hat = App->textures->Load("Assets/Textures/mapInteractions.png");
+	rightBarrels = App->textures->Load("Assets/Textures/rightBarrels.png"); 
+	tires = App->textures->Load("Assets/Textures/tires.png");
 
 	// Audios are loaded
 	initialSong = App->audio->LoadFx("Assets/SoundFX/initialSong.wav");
@@ -147,6 +143,10 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
+	App->textures->Unload(tires);
+	App->textures->Unload(rightBarrels);
+	App->textures->Unload(hat);
+	App->textures->Unload(idleMultipliers);
 	App->textures->Unload(bonus);
 	App->textures->Unload(leftBarrels);
 	App->textures->Unload(background);
@@ -163,20 +163,17 @@ update_status ModuleSceneIntro::Update()
 	//Blitting bonuses
 	App->renderer->Blit(idleMultipliers, 193, 233);
 
-	App->renderer->Blit(Barrels, 409, 347);
+	App->renderer->Blit(rightBarrels, 409, 347);
 
 	SDL_Rect littleHatrect1 = Hat1.GetCurrentFrame();
 	SDL_Rect littleHatrect2 = Hat2.GetCurrentFrame();
 	SDL_Rect littleHatrect3 = Hat3.GetCurrentFrame();
 
-	App->renderer->Blit(Cowboy_Hat, 398, 146, &littleHatrect1);
-	App->renderer->Blit(Cowboy_Hat, 402, 187, &littleHatrect2);
-	App->renderer->Blit(Cowboy_Hat, 454, 163, &littleHatrect3);
+	App->renderer->Blit(hat, 398, 146, &littleHatrect1);
+	App->renderer->Blit(hat, 402, 187, &littleHatrect2);
+	App->renderer->Blit(hat, 454, 163, &littleHatrect3);
 
-
-
-	//blitting cowboys
-
+	// Blitting cowboys
 	Cowboyrect1 = Cowboy1.GetCurrentFrame();
 	Cowboyrect2 = Cowboy2.GetCurrentFrame();
 	Cowboyrect3 = Cowboy3.GetCurrentFrame();
@@ -188,20 +185,19 @@ update_status ModuleSceneIntro::Update()
 	Cowboyrect9 = Cowboy9.GetCurrentFrame();
 	Cowboyrect10 = Cowboy10.GetCurrentFrame();
 	Cowboyrect11 = Cowboy11.GetCurrentFrame();
-
-
-	App->renderer->Blit(Cowboy_Hat, 325, 143, &Cowboyrect1);
-	App->renderer->Blit(Cowboy_Hat, 304, 155, &Cowboyrect2);
-	App->renderer->Blit(Cowboy_Hat, 284, 166, &Cowboyrect3);
-	App->renderer->Blit(Cowboy_Hat, 265, 175, &Cowboyrect4);
-	App->renderer->Blit(Cowboy_Hat, 245, 187, &Cowboyrect5);
-	App->renderer->Blit(Cowboy_Hat, 224, 199, &Cowboyrect6);
-	App->renderer->Blit(Cowboy_Hat, 337, 171, &Cowboyrect7);
-	App->renderer->Blit(Cowboy_Hat, 319, 181, &Cowboyrect8);
-	App->renderer->Blit(Cowboy_Hat, 301, 194, &Cowboyrect9);
-	App->renderer->Blit(Cowboy_Hat, 282, 204, &Cowboyrect10);
-	App->renderer->Blit(Cowboy_Hat, 266, 214, &Cowboyrect11);
-	//if(x4)
+	
+	App->renderer->Blit(hat, 325, 143, &Cowboyrect1);
+	App->renderer->Blit(hat, 304, 155, &Cowboyrect2);
+	App->renderer->Blit(hat, 284, 166, &Cowboyrect3);
+	App->renderer->Blit(hat, 265, 175, &Cowboyrect4);
+	App->renderer->Blit(hat, 245, 187, &Cowboyrect5);
+	App->renderer->Blit(hat, 224, 199, &Cowboyrect6);
+	App->renderer->Blit(hat, 337, 171, &Cowboyrect7);
+	App->renderer->Blit(hat, 319, 181, &Cowboyrect8);
+	App->renderer->Blit(hat, 301, 194, &Cowboyrect9);
+	App->renderer->Blit(hat, 282, 204, &Cowboyrect10);
+	App->renderer->Blit(hat, 266, 214, &Cowboyrect11);
+	
 	if(x2)
 		App->renderer->Blit(bonus, 310, 467, &activeMultiplier_x2);
 
@@ -220,7 +216,6 @@ update_status ModuleSceneIntro::Update()
 	if(hold)
 		App->renderer->Blit(bonus, 448, 332, &activeMultiplier_hold);
 
-
 	if(activatedFlag1)
 		App->renderer->Blit(bonus, 409, 102, &flag1_active);
 	else
@@ -235,6 +230,8 @@ update_status ModuleSceneIntro::Update()
 		App->renderer->Blit(bonus, 500, 118, &flag3_active);
 	else
 		App->renderer->Blit(bonus, 500, 118, &flag3);
+
+	App->renderer->Blit(tires, 431, 106);
 
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{

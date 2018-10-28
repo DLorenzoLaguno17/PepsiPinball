@@ -22,7 +22,7 @@ bool ModuleDecoration::Start()
 	bool ret = true;	
 
 	mapInteractions = App->textures->Load("Assets/Textures/bonus.png");
-	decoration = App->textures->Load("Assets/Textures/decoration1.png");
+	decoration = App->textures->Load("Assets/Textures/decoration.png");
 	scoreScreen = App->textures->Load("Assets/Textures/scoreScreen.png");
 
 	return ret;

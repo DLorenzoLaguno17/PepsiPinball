@@ -44,6 +44,7 @@ bool ModulePlayer::Start()
 	henSound = App->audio->LoadFx("Assets/SoundFX/hen.wav");
 	loseSound = App->audio->LoadFx("Assets/SoundFX/lose.wav"); 
 	touchingHat = App->audio->LoadFx("Assets/SoundFX/touchingHat.wav");
+	wolfSound = App->audio->LoadFx("Assets/SoundFX/wolf.wav");
 
 	// Fonts are loaded
 	fontScore = App->fonts->Load("Assets/Textures/Fonts/fontScore.png", "0123845679", 2);
@@ -329,6 +330,7 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 	else if (bodyB == pathSensor) {
 		playerScore += pathScore;
 		App->audio->PlayFx(thrillingSound);
+		App->audio->PlayFx(wolfSound);
 	}
 	else if (bodyB == hatSensor1 || bodyB == hatSensor2 || bodyB == hatSensor3) {
 		App->audio->PlayFx(touchingHat);
