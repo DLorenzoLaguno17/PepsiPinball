@@ -308,7 +308,7 @@ void ModulePlayer::addBall(uint x, uint y) {
 
 void ModulePlayer::createSensors() {
 	// Sensor for the carruage
-	carruageSensor = App->physics->CreateRectangleSensor( 165, 245, 15, 15);
+	carruageSensor = App->physics->CreateRectangleSensor( 135, 255, 15, 15);
 	
 	// Sensors for the path
 	pathSensor = App->physics->CreateRectangleSensor(550, 275, 15, 15);
