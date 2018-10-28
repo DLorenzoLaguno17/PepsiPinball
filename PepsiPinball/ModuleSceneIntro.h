@@ -28,12 +28,13 @@ public:
 	SDL_Texture* idleMultipliers = nullptr;
 	SDL_Texture* Barrels = nullptr;
 	SDL_Texture* bonus = nullptr;
-
+	SDL_Texture* Cowboy_Hat = nullptr;
 	SDL_Texture* box = nullptr;
 	SDL_Texture* rick = nullptr;
 
 	//Bonus 
 	SDL_Rect multiplier;
+	SDL_Rect LittleHat;
 	SDL_Rect activeMultiplier_x2;
 	SDL_Rect activeMultiplier_x4;
 	SDL_Rect activeMultiplier_x6;
@@ -54,6 +55,7 @@ public:
 	SDL_Rect flag2_active;
 	SDL_Rect flag3;
 	SDL_Rect flag3_active;
+
 
 	bool activatedFlag1 = false;
 	bool activatedFlag2 = false;

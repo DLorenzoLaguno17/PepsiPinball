@@ -11,6 +11,7 @@
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	// Triangles at the top of the map
+	LittleHat = { 34, 29, 80, 29 };
 	flag1 = { 67, 6, 64, 36 }; 
 	flag1_active = { 2, 6, 64, 36 };
 	flag2 = { 75, 57, 50, 41 }; 
@@ -39,7 +40,7 @@ bool ModuleSceneIntro::Start()
 
 	box = App->textures->Load("pinball/crate.png");
 	rick = App->textures->Load("pinball/rick_head.png");
-
+	Cowboy_Hat = App->textures->Load("Assets/Textures/mapInteractions.png");
 	background = App->textures->Load("Assets/Textures/Map.png");
 	leftBarrels = App->textures->Load("Assets/Textures/leftBarrels.png");
 	bonus = App->textures->Load("Assets/Textures/bonus.png");
@@ -83,7 +84,8 @@ update_status ModuleSceneIntro::Update()
 	//Blitting bonuses
 	App->renderer->Blit(idleMultipliers, 193, 233);
 
-	App->renderer->Blit(Barrels, 379, 347);
+	App->renderer->Blit(Barrels, 409, 347);
+
 	//if(x4)
 	if(x2)
 		App->renderer->Blit(bonus, 310, 467, &activeMultiplier_x2);
