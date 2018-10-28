@@ -19,17 +19,12 @@ public:
 
 public:
 	p2List<PhysBody*> circles;
-	p2List<PhysBody*> boxes;
-	p2List<PhysBody*> ricks;
 	
 	// Textures
 	SDL_Texture* background = nullptr;
 	SDL_Texture* leftBarrels = nullptr;
 	SDL_Texture* idleMultipliers = nullptr;
 	SDL_Texture* bonus = nullptr;
-
-	SDL_Texture* box = nullptr;
-	SDL_Texture* rick = nullptr;
 
 	//Bonus 
 	SDL_Rect multiplier;
@@ -65,6 +60,9 @@ public:
 
 	// Total score
 	uint playerScore;
+
+	int fontScore = -1;
+	char scoreText[10];
 
 	// Score modifyers
 	uint collisionScore;
