@@ -151,25 +151,6 @@ bool ModulePhysics::Start()
 	b2BodyDef bd;
 	ground = world->CreateBody(&bd);
 
-
-	// Big static circle as "ground" in the middle of the screen
-	/*int x = SCREEN_WIDTH / 2;
-	int y = SCREEN_HEIGHT / 1.5f;
-	int diameter = SCREEN_WIDTH / 2;
-
-	b2BodyDef body;
-	body.type = b2_staticBody;
-	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
-
-	b2Body* big_ball = world->CreateBody(&body);
-
-	b2CircleShape shape;
-	shape.m_radius = PIXEL_TO_METERS(diameter) * 0.5f;
-
-	b2FixtureDef fixture;
-	fixture.shape = &shape;
-	big_ball->CreateFixture(&fixture);*/
-
 	int x = SCREEN_WIDTH / 2;
 	int y = SCREEN_HEIGHT / 1.5f;
 	int width = 200;
@@ -177,14 +158,6 @@ bool ModulePhysics::Start()
 	b2BodyDef body;
 	body.type = b2_staticBody;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
-
-	//b2Body* b = world->CreateBody(&body);
-	//b2PolygonShape box;
-	//box.SetAsBox(PIXEL_TO_METERS(width), PIXEL_TO_METERS(height));
-
-	//b2FixtureDef fixture;
-	//fixture.shape = &box;
-	//fixture.density = 1.0f;
 
 	CreateChain(0, 0, MapColl, 132, b2_staticBody, 0);
 
