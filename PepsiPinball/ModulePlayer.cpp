@@ -122,7 +122,7 @@ void ModulePlayer::putRightFlippers() {
 	
 	// Upper flipper
 	rightFlipper2 = App->physics->CreateRectangle(375, 500, 32, 10, b2_dynamicBody);
-	rightFlipper2_pivot = App->physics->CreateCircle(500, 300, 3, b2_staticBody);
+	rightFlipper2_pivot = App->physics->CreateCircle(490, 290, 3, b2_staticBody);
 
 	b2RevoluteJointDef revoluteJointDef2;
 
