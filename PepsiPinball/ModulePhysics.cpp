@@ -137,15 +137,13 @@ int hat[16] = {
 	435, 170,
 	430, 175,
 	405, 175,
-
-
 };
 
 ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	world = NULL;
 	mouse_joint = NULL;
-	debug = true;
+	debug = false;
 }
 
 // Destructor

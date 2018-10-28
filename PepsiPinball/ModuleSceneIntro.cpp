@@ -52,7 +52,6 @@ bool ModuleSceneIntro::Start()
 
 	// Audios are loaded
 	initialSong = App->audio->LoadFx("Assets/SoundFX/initialSong.wav");
-	touchingHat = App->audio->LoadFx("Assets/SoundFX/touchingHat.wav");
 	beatingAllCowboys = App->audio->LoadFx("Assets/SoundFX/beatingAllCowboys.wav");
 
 	App->audio->PlayFx(initialSong);

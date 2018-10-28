@@ -54,13 +54,11 @@ public:
 	SDL_Rect flag3;
 	SDL_Rect flag3_active;
 
-
 	bool activatedFlag1 = false;
 	bool activatedFlag2 = false;
 	bool activatedFlag3 = false;
 
 	// Audios
-	uint touchingHat;
 	uint initialSong;
 	uint beatingAllCowboys;
 };
