@@ -141,6 +141,12 @@ int hat[16] = {
 
 };
 
+int cowboy[8] = {
+	330, 157,
+	330, 182,
+	344, 175,
+	344, 150,
+};
 ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	world = NULL;
@@ -193,6 +199,31 @@ bool ModulePhysics::Start()
 	CreateChain(4, 40, hat, 16, b2_staticBody, 3);
 
 	CreateChain(55, 15, hat, 16, b2_staticBody, 3);
+	
+	//cowboys
+
+	CreateChain(0, 0, cowboy, 8, b2_staticBody, 0);
+
+	CreateChain(-20, 13, cowboy, 8, b2_staticBody, 0);
+
+	CreateChain(-40, 26, cowboy, 8, b2_staticBody, 0);
+
+	CreateChain(-60, 39, cowboy, 8, b2_staticBody, 0);
+
+	CreateChain(-80, 52, cowboy, 8, b2_staticBody, 0);
+
+	CreateChain(-100, 65, cowboy, 8, b2_staticBody, 0);
+
+	CreateChain(12, 31, cowboy, 8, b2_staticBody, 0);
+
+	CreateChain(-6, 44, cowboy, 8, b2_staticBody, 0);
+
+	CreateChain(-23, 57, cowboy, 8, b2_staticBody, 0);
+
+	CreateChain(-43, 70, cowboy, 8, b2_staticBody, 0);
+
+	CreateChain(-63, 80, cowboy, 8, b2_staticBody, 0);
+
 	//b->CreateFixture(&fixture);
 
 	return true;

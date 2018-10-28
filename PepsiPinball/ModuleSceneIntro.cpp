@@ -12,7 +12,7 @@
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	// Triangles at the top of the map
-	littleHat = { 80, 29, 34, 29 };
+	littleHat = { 61, 12, 36, 30 };
 	flag1 = { 67, 6, 64, 36 }; 
 	flag1_active = { 2, 6, 64, 36 };
 	flag2 = { 75, 57, 50, 41 }; 
@@ -26,6 +26,67 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	activeMultiplier_x8 = { 101, 220, 26, 19 };
 	activeMultiplier_x10 = { 28, 191, 26, 19 };
 	activeMultiplier_hold = { 101, 190, 26, 19 };
+
+	//Cowboys Pushbacks
+
+	cowboyDown = { 0,0,21,46 };
+	cowboyUp = { 30, 0, 21,46 };
+
+	Cowboy1.PushBack(cowboyUp);
+	Cowboy1.PushBack(cowboyDown);
+	Cowboy1.loop = false;
+	Cowboy1.speed = 1.0f;
+
+	Cowboy2.PushBack(cowboyUp);
+	Cowboy2.PushBack(cowboyDown);
+	Cowboy2.loop = false;
+	Cowboy2.speed = 1.0f;
+
+	Cowboy3.PushBack(cowboyUp);
+	Cowboy3.PushBack(cowboyDown);
+	Cowboy3.loop = false;
+	Cowboy3.speed = 1.0f;
+
+	Cowboy4.PushBack(cowboyUp);
+	Cowboy4.PushBack(cowboyDown);
+	Cowboy4.loop = false;
+	Cowboy4.speed = 1.0f;
+
+	Cowboy5.PushBack(cowboyUp);
+	Cowboy5.PushBack(cowboyDown);
+	Cowboy5.loop = false;
+	Cowboy5.speed = 1.0f;
+
+	Cowboy6.PushBack(cowboyUp);
+	Cowboy6.PushBack(cowboyDown);
+	Cowboy6.loop = false;
+	Cowboy6.speed = 1.0f;
+
+	Cowboy7.PushBack(cowboyUp);
+	Cowboy7.PushBack(cowboyDown);
+	Cowboy7.loop = false;
+	Cowboy7.speed = 1.0f;
+
+	Cowboy8.PushBack(cowboyUp);
+	Cowboy8.PushBack(cowboyDown);
+	Cowboy8.loop = false;
+	Cowboy8.speed = 1.0f;
+
+	Cowboy9.PushBack(cowboyUp);
+	Cowboy9.PushBack(cowboyDown);
+	Cowboy9.loop = false;
+	Cowboy9.speed = 1.0f;
+
+	Cowboy10.PushBack(cowboyUp);
+	Cowboy10.PushBack(cowboyDown);
+	Cowboy10.loop = false;
+	Cowboy10.speed = 1.0f;
+
+	Cowboy11.PushBack(cowboyUp);
+	Cowboy11.PushBack(cowboyDown);
+	Cowboy11.loop = false;
+	Cowboy11.speed = 1.0f;
+
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -85,7 +146,32 @@ update_status ModuleSceneIntro::Update()
 	App->renderer->Blit(Cowboy_Hat, 405, 186, &littleHat);
 	App->renderer->Blit(Cowboy_Hat, 400, 147, &littleHat);
 	App->renderer->Blit(Cowboy_Hat, 455, 162, &littleHat);
+	//blitting cowboys
 
+	Cowboyrect1 = Cowboy1.GetCurrentFrame();
+	Cowboyrect2 = Cowboy2.GetCurrentFrame();
+	Cowboyrect3 = Cowboy3.GetCurrentFrame();
+	Cowboyrect4 = Cowboy4.GetCurrentFrame();
+	Cowboyrect5 = Cowboy5.GetCurrentFrame();
+	Cowboyrect6 = Cowboy6.GetCurrentFrame();
+	Cowboyrect7 = Cowboy7.GetCurrentFrame();
+	Cowboyrect8 = Cowboy8.GetCurrentFrame();
+	Cowboyrect9 = Cowboy9.GetCurrentFrame();
+	Cowboyrect10 = Cowboy10.GetCurrentFrame();
+	Cowboyrect11 = Cowboy11.GetCurrentFrame();
+
+
+	App->renderer->Blit(Cowboy_Hat, 325, 143, &Cowboyrect1);
+	App->renderer->Blit(Cowboy_Hat, 304, 155, &Cowboyrect2);
+	App->renderer->Blit(Cowboy_Hat, 284, 166, &Cowboyrect3);
+	App->renderer->Blit(Cowboy_Hat, 265, 175, &Cowboyrect4);
+	App->renderer->Blit(Cowboy_Hat, 245, 187, &Cowboyrect5);
+	App->renderer->Blit(Cowboy_Hat, 224, 199, &Cowboyrect6);
+	App->renderer->Blit(Cowboy_Hat, 337, 171, &Cowboyrect7);
+	App->renderer->Blit(Cowboy_Hat, 319, 181, &Cowboyrect8);
+	App->renderer->Blit(Cowboy_Hat, 301, 194, &Cowboyrect9);
+	App->renderer->Blit(Cowboy_Hat, 282, 204, &Cowboyrect10);
+	App->renderer->Blit(Cowboy_Hat, 266, 214, &Cowboyrect11);
 	//if(x4)
 	if(x2)
 		App->renderer->Blit(bonus, 310, 467, &activeMultiplier_x2);
