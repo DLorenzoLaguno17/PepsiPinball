@@ -41,6 +41,7 @@ public:
 	SDL_Rect activeMultiplier_x10;
 	SDL_Rect activeMultiplier_hold;
 
+	bool x2 = false;
 	bool x4 = false;
 	bool x6 = false;
 	bool x8 = false;

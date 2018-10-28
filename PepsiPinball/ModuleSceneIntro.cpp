@@ -85,7 +85,24 @@ update_status ModuleSceneIntro::Update()
 
 	App->renderer->Blit(Barrels, 379, 347);
 	//if(x4)
+	if(x2)
+		App->renderer->Blit(bonus, 310, 467, &activeMultiplier_x2);
+
+	if(x4)
 		App->renderer->Blit(bonus, 310, 432, &activeMultiplier_x4);
+
+	if(x6)
+		App->renderer->Blit(bonus, 267, 421, &activeMultiplier_x6);
+
+	if(x8)
+		App->renderer->Blit(bonus, 350, 421, &activeMultiplier_x8);
+
+	if(x10)
+		App->renderer->Blit(bonus, 207, 332, &activeMultiplier_x10);
+
+	if(hold)
+		App->renderer->Blit(bonus, 448, 332, &activeMultiplier_hold);
+
 
 	if(activatedFlag1)
 		App->renderer->Blit(bonus, 409, 102, &flag1_active);
@@ -102,25 +119,15 @@ update_status ModuleSceneIntro::Update()
 	else
 		App->renderer->Blit(bonus, 500, 118, &flag3);
 
-	// Move right flippers
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-		
-	}
-
-	// Move left flipper
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-		
-	}
-
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 12));
+		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 10, b2_dynamicBody));
 		circles.getLast()->data->listener = this;
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 	{
-		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50));
+		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50, b2_dynamicBody));
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
@@ -162,6 +169,9 @@ update_status ModuleSceneIntro::Update()
 		};
 
 		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64, b2_dynamicBody, 0));
+
+		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 15, b2_dynamicBody));
+		circles.getLast()->data->listener = this;
 	}
 
 	// Prepare for raycast ------------------------------------------------------
@@ -177,27 +187,7 @@ update_status ModuleSceneIntro::Update()
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
-		App->renderer->Blit(App->player->ball, x, y, NULL, 1.0f, c->data->GetRotation());
-		c = c->next;
-	}
-
-	c = boxes.getFirst();
-
-	while(c != NULL)
-	{
-		int x, y;
-		c->data->GetPosition(x, y);
-		App->renderer->Blit(box, x, y, NULL, 1.0f, c->data->GetRotation());
-		c = c->next;
-	}
-
-	c = ricks.getFirst();
-
-	while(c != NULL)
-	{
-		int x, y;
-		c->data->GetPosition(x, y);
-		App->renderer->Blit(rick, x, y, NULL, 1.0f, c->data->GetRotation());
+		App->renderer->Blit(App->player->ballTexture, x, y);
 		c = c->next;
 	}
 
@@ -206,5 +196,5 @@ update_status ModuleSceneIntro::Update()
 
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
-	//App->audio->PlayFx(bonus_fx);
+	playerScore += collisionScore;
 }
