@@ -39,7 +39,11 @@ bool ModulePlayer::Start()
 
 	// Audios are loaded
 	flipperSound =  App->audio->LoadFx("Assets/SoundFX/flipper.wav");
-	horseSound = App->audio->LoadFx("Assets/SoundFX/horse.wav");
+	horseSound = App->audio->LoadFx("Assets/SoundFX/lose.wav");
+	thrillingSound = App->audio->LoadFx("Assets/SoundFX/thrill.wav");
+	henSound = App->audio->LoadFx("Assets/SoundFX/hen.wav");
+	loseSound = App->audio->LoadFx("Assets/SoundFX/lose.wav"); 
+	touchingHat = App->audio->LoadFx("Assets/SoundFX/touchingHat.wav");
 
 	// Fonts are loaded
 	fontScore = App->fonts->Load("Assets/Textures/Fonts/fontScore.png", "0123845679", 2);
@@ -49,15 +53,17 @@ bool ModulePlayer::Start()
 	flagScore = 1000;
 	cowboyScore = 1000;
 	pathScore = 250000;
+	carruageScore = 500000;
 
 	playerScore = 0;
 
-	startingPosition = {650, 260};
+	startingPosition = {650, 360};
 
 	addBall(startingPosition.x, startingPosition.y);
 	putLeftFlipper();
 	putRightFlippers();
 	putHorse();
+	createSensors();
 
 	return true;
 }
@@ -122,8 +128,9 @@ update_status ModulePlayer::Update()
 		delete ball;
 		ball->body = nullptr;
 		addBall(startingPosition.x, startingPosition.y);
-	}
-	
+		App->audio->PlayFx(loseSound);
+	}	
+
 	//Drawing everything
 	SDL_Rect r = horse.GetCurrentFrame();
 	App->renderer->Blit(horseTexture, 600, 390, &r);
@@ -254,6 +261,52 @@ void ModulePlayer::addBall(uint x, uint y) {
 	ball->listener = this;
 }
 
+void ModulePlayer::createSensors() {
+	// Sensor for the carruage
+	carruageSensor = App->physics->CreateRectangleSensor( 165, 245, 15, 15);
+	
+	// Sensors for the path
+	pathSensor = App->physics->CreateRectangleSensor(550, 275, 15, 15);
+
+	// Sensors for the hats
+	hatSensor1 = App->physics->CreateRectangleSensor(418, 165, 40, 30);
+	hatSensor2 = App->physics->CreateRectangleSensor(422, 205, 40, 30);
+	hatSensor3 = App->physics->CreateRectangleSensor(473, 183, 40, 30);
+
+	// Sensors for the flags
+	flagSensor1 = App->physics->CreateRectangleSensor(440, 114, 10, 10);
+	flagSensor2 = App->physics->CreateRectangleSensor(475, 125, 10, 10);
+	flagSensor3 = App->physics->CreateRectangleSensor(515, 135, 10, 10);
+}
+
 void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
-	playerScore += collisionScore;
+	
+	if (bodyB == carruageSensor) {
+		playerScore += carruageScore;
+		App->audio->PlayFx(thrillingSound);
+		App->audio->PlayFx(henSound);
+	}
+	else if (bodyB == pathSensor) {
+		playerScore += pathScore;
+		App->audio->PlayFx(thrillingSound);
+	}
+	else if (bodyB == hatSensor1 || bodyB == hatSensor2 || bodyB == hatSensor3) {
+		App->audio->PlayFx(touchingHat);
+		playerScore += collisionScore;
+	}
+	else {
+		playerScore += collisionScore;
+	}
+
+	if (!App->scene_intro->hold) {
+		if (bodyB == flagSensor1) {
+			App->scene_intro->activatedFlag1 = true;
+		}
+		if (bodyB == flagSensor2) {
+			App->scene_intro->activatedFlag2 = true;
+		}
+		if (bodyB == flagSensor3) {
+			App->scene_intro->activatedFlag3 = true;
+		}
+	}
 }

@@ -137,8 +137,6 @@ int hat[16] = {
 	435, 170,
 	430, 175,
 	405, 175,
-
-
 };
 
 int cowboy[8] = {
@@ -151,7 +149,7 @@ ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app,
 {
 	world = NULL;
 	mouse_joint = NULL;
-	debug = true;
+	debug = false;
 }
 
 // Destructor

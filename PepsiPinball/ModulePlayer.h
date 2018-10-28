@@ -20,11 +20,11 @@ public:
 	bool CleanUp();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
-private:
+	void addBall(uint x, uint y);
 	void putRightFlippers();
 	void putLeftFlipper();
 	void putHorse();
-	void addBall(uint x, uint y);
+	void createSensors();
 
 public:
 	SDL_Texture* ballTexture = nullptr;
@@ -40,8 +40,13 @@ public:
 	Animation horse;
 
 	// Audios
-	uint flipperSound;
+	uint henSound;
+	uint thrillingSound;
 	uint horseSound;
+	uint loseSound;
+	uint touchingHat;
+
+	uint flipperSound;
 	bool playedRight = false;
 	bool playedLeft = false;
 
@@ -58,12 +63,24 @@ public:
 	uint flagScore;
 	uint cowboyScore;
 	uint pathScore;
+	uint carruageScore;
 
 	iPoint startingPosition;
 	iPoint position;
 	uint balls;
 
 private:
+	// Sensors
+	PhysBody* carruageSensor = nullptr;
+	PhysBody* pathSensor = nullptr;
+	PhysBody* hatSensor1 = nullptr;
+	PhysBody* hatSensor2 = nullptr;
+	PhysBody* hatSensor3 = nullptr;
+	PhysBody* flagSensor1 = nullptr;
+	PhysBody* flagSensor2 = nullptr;
+	PhysBody* flagSensor3 = nullptr;
+
+	// Joints
 	PhysBody* propeller = nullptr;
 	PhysBody* propeller_pivot = nullptr;
 	PhysBody* ball = nullptr;
