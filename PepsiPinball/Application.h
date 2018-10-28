@@ -13,6 +13,7 @@ class ModulePlayer;
 class ModuleSceneIntro;
 class ModuleDecoration;
 class ModulePhysics;
+class ModuleFonts;
 
 class Application
 {
@@ -26,6 +27,7 @@ public:
 	ModuleSceneIntro* scene_intro;
 	ModuleDecoration* decoration;
 	ModulePhysics* physics;
+	ModuleFonts* fonts;
 
 private:
 

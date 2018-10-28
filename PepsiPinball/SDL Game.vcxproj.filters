@@ -71,6 +71,9 @@
     <ClInclude Include="Animation.h">
       <Filter>Header Files\Containers</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleFonts.h">
+      <Filter>Header Files\Visual</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -108,6 +111,9 @@
     </ClCompile>
     <ClCompile Include="ModuleDecoration.cpp">
       <Filter>Header Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFonts.cpp">
+      <Filter>Header Files\Visual</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

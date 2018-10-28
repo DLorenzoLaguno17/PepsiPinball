@@ -12,7 +12,7 @@
 #pragma comment( lib, "Box2D/libx86/Release/Box2D.lib" )
 #endif
 
-int MapColl[128] = {
+int MapColl[132] = {
 	0, 521,
 	231, 521,
 	241, 508,
@@ -29,6 +29,9 @@ int MapColl[128] = {
 	64, 263,
 	174, 218,
 	202, 231,
+	410, 121,
+	420, 100,
+	445, 86,
 	484, 79,
 	504, 80,
 	515, 85,
@@ -42,13 +45,12 @@ int MapColl[128] = {
 	646, 205,
 	654, 248,
 	654, 289,
-	651, 389,
-	644, 414,
-	638, 422,
-	632, 425,
-	623, 425,
-	618, 419,
-	605, 413,
+	669, 389,
+	669, 515,
+	545, 515,
+	557, 427,
+	600, 400,
+	618, 390,
 	620, 377,
 	621, 275,
 	603, 183,
@@ -114,6 +116,18 @@ int fence[8] = {
 	85, 310,
 };
 
+int pillar1[6] = {
+	495, 120,
+	495, 130,
+	504, 123,
+};
+
+int pillar2[6] = {
+	457, 118,
+	465, 116,
+	456, 125
+};
+
 ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	world = NULL;
@@ -172,7 +186,7 @@ bool ModulePhysics::Start()
 	//fixture.shape = &box;
 	//fixture.density = 1.0f;
 
-	CreateChain(0, 0, MapColl, 128, b2_staticBody, 0);
+	CreateChain(0, 0, MapColl, 132, b2_staticBody, 0);
 
 	CreateChain(0, 0, Isle, 16, b2_staticBody, 0);
 
@@ -181,6 +195,10 @@ bool ModulePhysics::Start()
 	CreateChain(20, 0, BarrelKicker2, 8, b2_staticBody, 4);
 
 	CreateChain(0, 0, fence, 8, b2_staticBody, 0);
+
+	CreateChain(0, 0, pillar1, 6, b2_staticBody, 0);
+
+	CreateChain(0, 0, pillar2, 6, b2_staticBody, 0);
 
 	//b->CreateFixture(&fixture);
 

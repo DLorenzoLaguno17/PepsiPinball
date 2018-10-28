@@ -69,6 +69,9 @@ public:
 	// Total score
 	uint playerScore;
 
+	int fontScore = -1;
+	char scoreText[10];
+
 	// Score modifyers
 	uint collisionScore;
 	uint flagScore;
