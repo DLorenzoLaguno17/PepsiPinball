@@ -23,4 +23,5 @@ public:
 	// Textures
 	SDL_Texture* decoration = nullptr;
 	SDL_Texture* mapInteractions = nullptr;
+	SDL_Texture* scoreScreen = nullptr;
 };

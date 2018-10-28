@@ -51,10 +51,10 @@ public:
 	bool playedLeft = false;
 
 	// Total score
+	uint highScore;
 	uint playerScore;
 
 	int fontScore = -1;
-	int ballUsed = -1;
 	char scoreText[10];
 	char ballsText[10];
 

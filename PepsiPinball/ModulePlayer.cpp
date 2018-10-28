@@ -124,12 +124,44 @@ update_status ModulePlayer::Update()
 
 	// Death condition
 	ball->GetPosition(position.x, position.y);
-	if (position.y > SCREEN_HEIGHT) {
+	if (position.y > SCREEN_HEIGHT && balls < 6) {
 		delete ball;
 		ball->body = nullptr;
 		addBall(startingPosition.x, startingPosition.y);
 		App->audio->PlayFx(loseSound);
-	}	
+		
+		// Calculing final score
+		if (App->scene_intro->x10)
+			playerScore = playerScore * 10;
+		else if (App->scene_intro->x8)
+			playerScore = playerScore * 8;
+		else if (App->scene_intro->x6)
+			playerScore = playerScore * 6;
+		else if (App->scene_intro->x4)
+			playerScore = playerScore * 4;
+		else if (App->scene_intro->x2)
+			playerScore = playerScore * 2;
+
+		// Setting high score
+		if (playerScore > highScore)
+			highScore = playerScore;
+
+		// Resetting all values
+		App->scene_intro->x2 = false;
+		App->scene_intro->x4 = false;
+		App->scene_intro->x6 = false;
+		App->scene_intro->x8 = false;
+		App->scene_intro->x10 = false;
+		App->scene_intro->hold = false;
+		App->scene_intro->bonuses = 0;
+
+		App->scene_intro->activatedFlag1 = false;
+		App->scene_intro->activatedFlag2 = false;
+		App->scene_intro->activatedFlag3 = false;
+
+		playerScore = 0;
+		balls++;
+	}
 
 	//Drawing everything
 	SDL_Rect r = horse.GetCurrentFrame();
@@ -148,8 +180,16 @@ update_status ModulePlayer::Update()
 	App->renderer->Blit(App->player->ballTexture, position.x, position.y);
 	
 	// Drawing the score
-	sprintf_s(scoreText, 10, "%7d", playerScore);
-	App->fonts->BlitText(97, 473, fontScore, scoreText);
+	if (balls < 6) {
+		sprintf_s(ballsText, 10, "%1d", balls);
+		App->fonts->BlitText(200, 473, fontScore, ballsText);
+
+		sprintf_s(scoreText, 10, "%7d", playerScore);
+		App->fonts->BlitText(97, 473, fontScore, scoreText);
+
+		sprintf_s(scoreText, 10, "%7d", highScore);
+		App->fonts->BlitText(97, 525, fontScore, scoreText);
+	}
 
 	return UPDATE_CONTINUE;
 }
