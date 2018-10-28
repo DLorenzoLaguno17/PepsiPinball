@@ -4,6 +4,10 @@ Go to our GitHub: https://github.com/DLorenzoLaguno17/PepsiPinball
 
 Original game: http://www.freewebarcade.com/game/pepsi-pinball
 
+The difference between our game and the original are the cowboys, 
+in the original once you hit one, it dissapears and when you make all of them dissapear, 
+the saloo opens and a minigame starts. We don't have that minigame. 
+
 ## Controls
 
 ### Gameplay
