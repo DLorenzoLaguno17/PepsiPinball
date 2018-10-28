@@ -12,6 +12,73 @@
 #pragma comment( lib, "Box2D/libx86/Release/Box2D.lib" )
 #endif
 
+int MapColl[128] = {
+	0, 521,
+	231, 521,
+	241, 508,
+	243, 500,
+	243, 478,
+	237, 465,
+	220, 454,
+	163, 429,
+	135, 411,
+	84, 366,
+	62, 334,
+	45, 285,
+	50, 271,
+	64, 263,
+	174, 218,
+	202, 231,
+	484, 79,
+	504, 80,
+	515, 85,
+	526, 100,
+	569, 100,
+	585, 107,
+	600, 117,
+	621, 141,
+	630, 154,
+	638, 173,
+	646, 205,
+	654, 248,
+	654, 289,
+	651, 389,
+	644, 414,
+	638, 422,
+	632, 425,
+	623, 425,
+	618, 419,
+	605, 413,
+	620, 377,
+	621, 275,
+	603, 183,
+	590, 156,
+	573, 140,
+	543, 130,
+	537, 142,
+	538, 160,
+	544, 185,
+	544, 231,
+	560, 266,
+	573, 278,
+	584, 307,
+	597, 366,
+	596, 389,
+	588, 404,
+	579, 412,
+	557, 421,
+	494, 423,
+	444, 439,
+	422, 455,
+	408, 475,
+	405, 487,
+	407, 495,
+	400, 521,
+	687, 521,
+	687, 0,
+	0, 0,
+
+};
 ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	world = NULL;
@@ -35,6 +102,7 @@ bool ModulePhysics::Start()
 	b2BodyDef bd;
 	ground = world->CreateBody(&bd);
 
+
 	// Big static circle as "ground" in the middle of the screen
 	/*int x = SCREEN_WIDTH / 2;
 	int y = SCREEN_HEIGHT / 1.5f;
@@ -57,20 +125,22 @@ bool ModulePhysics::Start()
 	int y = SCREEN_HEIGHT / 1.5f;
 	int width = 200;
 	int height = 200;
-
+	int * Mapcollider = MapColl;
 	b2BodyDef body;
 	body.type = b2_staticBody;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 
-	b2Body* b = world->CreateBody(&body);
-	b2PolygonShape box;
-	box.SetAsBox(PIXEL_TO_METERS(width), PIXEL_TO_METERS(height));
+	//b2Body* b = world->CreateBody(&body);
+	//b2PolygonShape box;
+	//box.SetAsBox(PIXEL_TO_METERS(width), PIXEL_TO_METERS(height));
 
-	b2FixtureDef fixture;
-	fixture.shape = &box;
-	fixture.density = 1.0f;
+	//b2FixtureDef fixture;
+	//fixture.shape = &box;
+	//fixture.density = 1.0f;
 
-	b->CreateFixture(&fixture);
+	CreateChain(0, 0, Mapcollider, 128, b2_staticBody);
+
+	//b->CreateFixture(&fixture);
 
 	return true;
 }
@@ -170,10 +240,10 @@ PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int heig
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size)
+PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size, b2BodyType type)
 {
 	b2BodyDef body;
-	body.type = b2_dynamicBody;
+	body.type = type;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 
 	b2Body* b = world->CreateBody(&body);
