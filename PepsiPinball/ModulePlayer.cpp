@@ -7,11 +7,22 @@
 #include "ModulePlayer.h"
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
+#include "ModuleFonts.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	lf_Section = { 2, 3, 72, 21 };
 	rf_Section = { 2, 28, 72, 21 };
+
+	horse.PushBack({48, 58, 72, 104});
+	horse.PushBack({ 150, 58, 72, 104 });
+	horse.PushBack({ 242, 58, 72, 104 });
+	horse.PushBack({ 331, 59, 72, 104 });
+	horse.PushBack({ 242, 58, 72, 104 });
+	horse.PushBack({ 48, 58, 72, 104 });
+
+	horse.speed = 0.15f;
+	horse.loop = false;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -24,15 +35,29 @@ bool ModulePlayer::Start()
 	// Textures are loaded
 	ballTexture = App->textures->Load("Assets/Textures/ball.png");
 	flippersTexture = App->textures->Load("Assets/Textures/flippers.png");
+	horseTexture = App->textures->Load("Assets/Textures/horse.png");
 
 	// Audios are loaded
 	flipperSound =  App->audio->LoadFx("Assets/SoundFX/flipper.wav");
-	
-	startingPosition = {500, 100};
+	horseSound = App->audio->LoadFx("Assets/SoundFX/horse.wav");
+
+	// Fonts are loaded
+	fontScore = App->fonts->Load("Assets/Textures/Fonts/fontScore.png", "0123845679", 2);
+
+	// Each score increaser is given a value
+	collisionScore = 500;
+	flagScore = 1000;
+	cowboyScore = 1000;
+	pathScore = 250000;
+
+	playerScore = 0;
+
+	startingPosition = {650, 260};
 
 	addBall(startingPosition.x, startingPosition.y);
 	putLeftFlipper();
 	putRightFlippers();
+	putHorse();
 
 	return true;
 }
@@ -41,6 +66,9 @@ bool ModulePlayer::Start()
 bool ModulePlayer::CleanUp()
 {
 	LOG("Unloading player");
+	App->fonts->UnLoad(fontScore);
+
+	App->textures->Unload(horseTexture);
 	App->textures->Unload(flippersTexture);
 	App->textures->Unload(ballTexture);
 
@@ -77,8 +105,21 @@ update_status ModulePlayer::Update()
 		leftFlipperJoint->EnableMotor(false);
 		playedLeft = false;
 	}
+
+	// Activate horse propeller
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+		propellerJoint->EnableMotor(true);
+		App->audio->PlayFx(horseSound);
+		horse.Reset();
+	}
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP) {
+		propellerJoint->EnableMotor(false);
+	}
 	
 	//Drawing everything
+	SDL_Rect r = horse.GetCurrentFrame();
+	App->renderer->Blit(horseTexture, 600, 390, &r);
+
 	rightFlipper1->GetPosition(position.x, position.y);
 	App->renderer->Blit(flippersTexture, position.x, position.y, &rf_Section, 1.0f, rightFlipper1->GetRotation());
 	
@@ -90,6 +131,10 @@ update_status ModulePlayer::Update()
 	
 	ball->GetPosition(position.x, position.y); 
 	App->renderer->Blit(App->player->ballTexture, position.x, position.y);
+	
+	// Drawing the score
+	sprintf_s(scoreText, 10, "%7d", playerScore);
+	App->fonts->BlitText(97, 473, fontScore, scoreText);
 
 	return UPDATE_CONTINUE;
 }
@@ -121,8 +166,8 @@ void ModulePlayer::putRightFlippers() {
 	rightFlipperJoint1 = (b2RevoluteJoint*)App->physics->world->CreateJoint(&revoluteJointDef1);
 	
 	// Upper flipper
-	rightFlipper2 = App->physics->CreateRectangle(375, 500, 32, 10, b2_dynamicBody);
-	rightFlipper2_pivot = App->physics->CreateCircle(490, 290, 3, b2_staticBody);
+	rightFlipper2 = App->physics->CreateRectangle(475, 280, 32, 10, b2_dynamicBody);
+	rightFlipper2_pivot = App->physics->CreateCircle(499, 295, 3, b2_staticBody);
 
 	b2RevoluteJointDef revoluteJointDef2;
 
@@ -172,7 +217,36 @@ void ModulePlayer::putLeftFlipper() {
 	leftFlipperJoint = (b2RevoluteJoint*)App->physics->world->CreateJoint(&revoluteJointDef);
 }
 
+void ModulePlayer::putHorse() {
+	propeller = App->physics->CreateRectangle(640, 428, 10, 30, b2_dynamicBody);
+	propeller_pivot = App->physics->CreateCircle(640, 428, 5, b2_staticBody);
+
+	b2PrismaticJointDef prismaticJointDef;
+
+	prismaticJointDef.bodyA = propeller->body;
+	prismaticJointDef.bodyB = propeller_pivot->body;
+
+	prismaticJointDef.localAnchorA.Set(0, 0);
+	prismaticJointDef.localAnchorB.Set(0, 0);
+	prismaticJointDef.collideConnected = false;
+
+	prismaticJointDef.localAxisA.Set(0, 1);
+
+	prismaticJointDef.enableLimit = true;
+	prismaticJointDef.lowerTranslation = 0;
+	prismaticJointDef.upperTranslation = PIXEL_TO_METERS(50);
+	prismaticJointDef.enableMotor = false;
+	prismaticJointDef.maxMotorForce = 700;
+	prismaticJointDef.motorSpeed = 5000;
+
+	propellerJoint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&prismaticJointDef);
+}
+
 void ModulePlayer::addBall(uint x, uint y) {
 	ball = App->physics->CreateCircle(x, y, 12, b2_dynamicBody);
 	ball->listener = this;
+}
+
+void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
+	playerScore += collisionScore;
 }

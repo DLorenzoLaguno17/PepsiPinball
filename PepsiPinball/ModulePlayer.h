@@ -3,11 +3,11 @@
 #include "Globals.h"
 #include "p2Point.h"
 #include "p2List.h"
+#include "Animation.h"
 #include "Box2D/Box2D/Box2D.h"
 
 struct SDL_Texture;
 class PhysBody;
-struct SDL_Rect;
 
 class ModulePlayer : public Module
 {
@@ -18,30 +18,54 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 private:
 	void putRightFlippers();
 	void putLeftFlipper();
+	void putHorse();
 	void addBall(uint x, uint y);
 
 public:
 	SDL_Texture* ballTexture = nullptr;
 	SDL_Texture* flippersTexture = nullptr;
+	
+	// The propeller of the ball is a horse
+	SDL_Texture* horseTexture = nullptr;
 
 	// Flipers section of the texture
 	SDL_Rect rf_Section;
 	SDL_Rect lf_Section;
 
+	Animation horse;
+
 	// Audios
 	uint flipperSound;
+	uint horseSound;
 	bool playedRight = false;
 	bool playedLeft = false;
+
+	// Total score
+	uint playerScore;
+
+	int fontScore = -1;
+	int ballUsed = -1;
+	char scoreText[10];
+	char ballsText[10];
+
+	// Score modifyers
+	uint collisionScore;
+	uint flagScore;
+	uint cowboyScore;
+	uint pathScore;
 
 	iPoint startingPosition;
 	iPoint position;
 	uint balls;
 
 private:
+	PhysBody* propeller = nullptr;
+	PhysBody* propeller_pivot = nullptr;
 	PhysBody* ball = nullptr;
 	PhysBody* leftFlipper = nullptr;
 	PhysBody* leftFlipper_pivot = nullptr;
@@ -50,6 +74,7 @@ private:
 	PhysBody* rightFlipper2 = nullptr;
 	PhysBody* rightFlipper2_pivot = nullptr;
 
+	b2PrismaticJoint* propellerJoint = nullptr;
 	b2RevoluteJoint* leftFlipperJoint = nullptr;
 	b2RevoluteJoint* rightFlipperJoint1 = nullptr;
 	b2RevoluteJoint* rightFlipperJoint2 = nullptr;

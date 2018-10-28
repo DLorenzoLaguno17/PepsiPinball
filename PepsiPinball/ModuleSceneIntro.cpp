@@ -12,7 +12,7 @@
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	// Triangles at the top of the map
-	LittleHat = { 80, 29, 34, 29 };
+	littleHat = { 80, 29, 34, 29 };
 	flag1 = { 67, 6, 64, 36 }; 
 	flag1_active = { 2, 6, 64, 36 };
 	flag2 = { 75, 57, 50, 41 }; 
@@ -55,20 +55,7 @@ bool ModuleSceneIntro::Start()
 	touchingHat = App->audio->LoadFx("Assets/SoundFX/touchingHat.wav");
 	beatingAllCowboys = App->audio->LoadFx("Assets/SoundFX/beatingAllCowboys.wav");
 
-	// Fonts are loaded
-	fontScore = App->fonts->Load("Assets/Textures/Fonts/fontScore.png", "0123845679", 2);
-
-	// Each score increaser is given a value
-	collisionScore = 500;
-	flagScore = 1000;
-	cowboyScore = 1000;
-	pathScore = 250000;
-	//shit
-
-
-	playerScore = 0;
-
-	//App->audio->PlayFx(initialSong);
+	App->audio->PlayFx(initialSong);
 
 	return ret;
 }
@@ -77,8 +64,6 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
-	App->fonts->UnLoad(fontScore);
-
 	App->textures->Unload(bonus);
 	App->textures->Unload(leftBarrels);
 	App->textures->Unload(background);
@@ -97,10 +82,9 @@ update_status ModuleSceneIntro::Update()
 
 	App->renderer->Blit(Barrels, 409, 347);
 
-
-	App->renderer->Blit(Cowboy_Hat, 405, 186, &LittleHat);
-	App->renderer->Blit(Cowboy_Hat, 400, 147, &LittleHat);
-	App->renderer->Blit(Cowboy_Hat, 455, 162, &LittleHat);
+	App->renderer->Blit(Cowboy_Hat, 405, 186, &littleHat);
+	App->renderer->Blit(Cowboy_Hat, 400, 147, &littleHat);
+	App->renderer->Blit(Cowboy_Hat, 455, 162, &littleHat);
 
 	//if(x4)
 	if(x2)
@@ -160,14 +144,10 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
-	// Drawing the score
-	sprintf_s(scoreText, 10, "%7d", playerScore);
-	App->fonts->BlitText(97, 473, fontScore, scoreText);
-
 	return UPDATE_CONTINUE;
 }
 
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
-	playerScore += collisionScore;
+	
 }

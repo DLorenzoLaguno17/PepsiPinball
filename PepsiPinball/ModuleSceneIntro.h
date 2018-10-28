@@ -19,8 +19,6 @@ public:
 
 public:
 	p2List<PhysBody*> circles;
-	p2List<PhysBody*> boxes;
-	p2List<PhysBody*> ricks;
 	
 	// Textures
 	SDL_Texture* background = nullptr;
@@ -34,7 +32,7 @@ public:
 
 	//Bonus 
 	SDL_Rect multiplier;
-	SDL_Rect LittleHat;
+	SDL_Rect littleHat;
 	SDL_Rect activeMultiplier_x2;
 	SDL_Rect activeMultiplier_x4;
 	SDL_Rect activeMultiplier_x6;
@@ -65,16 +63,4 @@ public:
 	uint touchingHat;
 	uint initialSong;
 	uint beatingAllCowboys;
-
-	// Total score
-	uint playerScore;
-
-	int fontScore = -1;
-	char scoreText[10];
-
-	// Score modifyers
-	uint collisionScore;
-	uint flagScore;
-	uint cowboyScore;
-	uint pathScore;
 };
