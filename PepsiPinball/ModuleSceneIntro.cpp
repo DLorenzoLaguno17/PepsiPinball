@@ -7,6 +7,7 @@
 #include "ModulePlayer.h"
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
+#include "ModuleFonts.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -37,24 +38,27 @@ bool ModuleSceneIntro::Start()
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	box = App->textures->Load("pinball/crate.png");
-	rick = App->textures->Load("pinball/rick_head.png");
-
+	// Textures are loaded
 	background = App->textures->Load("Assets/Textures/Map.png");
 	leftBarrels = App->textures->Load("Assets/Textures/leftBarrels.png");
 	bonus = App->textures->Load("Assets/Textures/bonus.png");
-	Barrels = App->textures->Load("Assets/Textures/rightBarrels.png");
 	idleMultipliers = App->textures->Load("Assets/Textures/idleMultipliers.png");
 
+	// Audios are loaded
 	initialSong = App->audio->LoadFx("Assets/SoundFX/initialSong.wav");
 	touchingHat = App->audio->LoadFx("Assets/SoundFX/touchingHat.wav");
 	beatingAllCowboys = App->audio->LoadFx("Assets/SoundFX/beatingAllCowboys.wav");
+
+	// Fonts are loaded
+	fontScore = App->fonts->Load("Assets/Textures/Fonts/fontScore.png", "0123845679", 2);
 
 	// Each score increaser is given a value
 	collisionScore = 500;
 	flagScore = 1000;
 	cowboyScore = 1000;
 	pathScore = 250000;
+	//shit
+
 
 	playerScore = 0;
 
@@ -67,10 +71,12 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
+	App->fonts->UnLoad(fontScore);
+
 	App->textures->Unload(bonus);
 	App->textures->Unload(leftBarrels);
 	App->textures->Unload(background);
-	App->textures->Unload(Barrels);
+
 	return true;
 }
 
@@ -83,8 +89,6 @@ update_status ModuleSceneIntro::Update()
 	//Blitting bonuses
 	App->renderer->Blit(idleMultipliers, 193, 233);
 
-	App->renderer->Blit(Barrels, 379, 347);
-	//if(x4)
 	if(x2)
 		App->renderer->Blit(bonus, 310, 467, &activeMultiplier_x2);
 
@@ -121,55 +125,6 @@ update_status ModuleSceneIntro::Update()
 
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 10, b2_dynamicBody));
-		circles.getLast()->data->listener = this;
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-	{
-		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50, b2_dynamicBody));
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		// Pivot 0, 0
-		int rick_head[64] = {
-			14, 36,
-			42, 40,
-			40, 0,
-			75, 30,
-			88, 4,
-			94, 39,
-			111, 36,
-			104, 58,
-			107, 62,
-			117, 67,
-			109, 73,
-			110, 85,
-			106, 91,
-			109, 99,
-			103, 104,
-			100, 115,
-			106, 121,
-			103, 125,
-			98, 126,
-			95, 137,
-			83, 147,
-			67, 147,
-			53, 140,
-			46, 132,
-			34, 136,
-			38, 126,
-			23, 123,
-			30, 114,
-			10, 102,
-			29, 90,
-			0, 75,
-			30, 62
-		};
-
-		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64, b2_dynamicBody, 0));
-
 		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 15, b2_dynamicBody));
 		circles.getLast()->data->listener = this;
 	}
@@ -180,7 +135,7 @@ update_status ModuleSceneIntro::Update()
 	mouse.x = App->input->GetMouseX();
 	mouse.y = App->input->GetMouseY();
 
-	// All draw functions ------------------------------------------------------
+	// Draw circles of F1 ------------------------------------------------------
 	p2List_item<PhysBody*>* c = circles.getFirst();
 
 	while(c != NULL)
@@ -190,6 +145,10 @@ update_status ModuleSceneIntro::Update()
 		App->renderer->Blit(App->player->ballTexture, x, y);
 		c = c->next;
 	}
+
+	// Drawing the score
+	sprintf_s(scoreText, 10, "%7d", playerScore);
+	App->fonts->BlitText(97, 473, fontScore, scoreText);
 
 	return UPDATE_CONTINUE;
 }
