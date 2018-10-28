@@ -56,9 +56,15 @@ public:
 	SDL_Rect Cowboyrect9;
 	SDL_Rect Cowboyrect10;
 	SDL_Rect Cowboyrect11;
+	//animation Hats
+
+	Animation Hat1;
+	Animation Hat2;
+	Animation Hat3;
 
 	//Bonus 
 	SDL_Rect multiplier;
+	SDL_Rect bigHat;
 	SDL_Rect littleHat;
 	SDL_Rect cowboyUp;
 	SDL_Rect cowboyDown;

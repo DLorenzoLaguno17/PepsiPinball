@@ -333,6 +333,9 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 	else if (bodyB == hatSensor1 || bodyB == hatSensor2 || bodyB == hatSensor3) {
 		App->audio->PlayFx(touchingHat);
 		playerScore += collisionScore;
+		if (bodyB == hatSensor1) { App->scene_intro->Hat1.Reset(); };
+		if (bodyB == hatSensor2) { App->scene_intro->Hat2.Reset(); };
+		if (bodyB == hatSensor3) { App->scene_intro->Hat3.Reset(); };
 	}
 	else {
 		playerScore += collisionScore;

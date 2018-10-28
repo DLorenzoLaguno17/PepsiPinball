@@ -12,7 +12,8 @@
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	// Triangles at the top of the map
-	littleHat = { 61, 12, 36, 30 };
+	littleHat = { 56, 7, 45, 36 };
+	bigHat = {116, 7, 45, 36};
 	flag1 = { 67, 6, 64, 36 }; 
 	flag1_active = { 2, 6, 64, 36 };
 	flag2 = { 75, 57, 50, 41 }; 
@@ -27,7 +28,27 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	activeMultiplier_x10 = { 28, 191, 26, 19 };
 	activeMultiplier_hold = { 101, 190, 26, 19 };
 
+
+	//hat pushbacks
+
+
+	Hat1.PushBack(bigHat);
+	Hat1.PushBack(littleHat);
+	Hat1.loop = false;
+	Hat1.speed = 0.15f;
+
+	Hat2.PushBack(bigHat);
+	Hat2.PushBack(littleHat);
+	Hat2.loop = false;
+	Hat2.speed = 0.15f;
+
+	Hat3.PushBack(bigHat);
+	Hat3.PushBack(littleHat);
+	Hat3.loop = false;
+	Hat3.speed = 0.15f;
+
 	//Cowboys Pushbacks
+
 
 	cowboyDown = { 0,0,21,46 };
 	cowboyUp = { 30, 0, 21,46 };
@@ -144,9 +165,16 @@ update_status ModuleSceneIntro::Update()
 
 	App->renderer->Blit(Barrels, 409, 347);
 
-	App->renderer->Blit(Cowboy_Hat, 405, 186, &littleHat);
-	App->renderer->Blit(Cowboy_Hat, 400, 147, &littleHat);
-	App->renderer->Blit(Cowboy_Hat, 455, 162, &littleHat);
+	SDL_Rect littleHatrect1 = Hat1.GetCurrentFrame();
+	SDL_Rect littleHatrect2 = Hat2.GetCurrentFrame();
+	SDL_Rect littleHatrect3 = Hat3.GetCurrentFrame();
+
+	App->renderer->Blit(Cowboy_Hat, 398, 146, &littleHatrect1);
+	App->renderer->Blit(Cowboy_Hat, 402, 187, &littleHatrect2);
+	App->renderer->Blit(Cowboy_Hat, 454, 163, &littleHatrect3);
+
+
+
 	//blitting cowboys
 
 	Cowboyrect1 = Cowboy1.GetCurrentFrame();

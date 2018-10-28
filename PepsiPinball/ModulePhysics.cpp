@@ -180,9 +180,9 @@ bool ModulePhysics::Start()
 
 	CreateChain(0, 0, Isle, 16, b2_staticBody, 0);
 
-	CreateChain(0, 0, BarrelKicker1, 10, b2_staticBody, 4);
+	CreateChain(0, 0, BarrelKicker1, 10, b2_staticBody, 2);
 
-	CreateChain(20, 0, BarrelKicker2, 8, b2_staticBody, 4);
+	CreateChain(20, 0, BarrelKicker2, 8, b2_staticBody, 2);
 
 	CreateChain(0, 0, fence, 8, b2_staticBody, 0);
 
