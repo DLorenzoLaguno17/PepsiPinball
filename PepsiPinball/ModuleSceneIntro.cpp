@@ -29,7 +29,6 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	activeMultiplier_hold = { 101, 190, 26, 19 };
 
 	// Hat pushbacks
-
 	Hat1.PushBack(bigHat);
 	Hat1.PushBack(littleHat);
 	Hat1.loop = false;
@@ -45,9 +44,7 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	Hat3.loop = false;
 	Hat3.speed = 0.15f;
 
-	//Cowboys Pushbacks
-
-
+	// Cowboys Pushbacks
 	cowboyDown = { 0,0,21,46 };
 	cowboyUp = { 30, 0, 21,46 };
 

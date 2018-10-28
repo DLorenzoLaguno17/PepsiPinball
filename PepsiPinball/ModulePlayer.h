@@ -41,6 +41,7 @@ public:
 
 	// Audios
 	uint henSound;
+	uint barrelSound;
 	uint thrillingSound;
 	uint horseSound;
 	uint loseSound;
@@ -74,6 +75,8 @@ private:
 	// Sensors
 	PhysBody* carruageSensor = nullptr;
 	PhysBody* pathSensor = nullptr;
+	PhysBody* barrelSensorRight = nullptr;
+	PhysBody* barrelSensorLeft = nullptr;
 	PhysBody* hatSensor1 = nullptr;
 	PhysBody* hatSensor2 = nullptr;
 	PhysBody* hatSensor3 = nullptr;

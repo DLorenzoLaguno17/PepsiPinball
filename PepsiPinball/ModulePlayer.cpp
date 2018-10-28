@@ -45,6 +45,7 @@ bool ModulePlayer::Start()
 	loseSound = App->audio->LoadFx("Assets/SoundFX/lose.wav"); 
 	touchingHat = App->audio->LoadFx("Assets/SoundFX/touchingHat.wav");
 	wolfSound = App->audio->LoadFx("Assets/SoundFX/wolf.wav");
+	barrelSound = App->audio->LoadFx("Assets/SoundFX/barrel.wav");
 
 	// Fonts are loaded
 	fontScore = App->fonts->Load("Assets/Textures/Fonts/fontScore.png", "0123845679", 2);
@@ -309,6 +310,10 @@ void ModulePlayer::createSensors() {
 	// Sensors for the path
 	pathSensor = App->physics->CreateRectangleSensor(550, 275, 15, 15);
 
+	// Sensors for the barrel
+	barrelSensorRight = App->physics->CreateRectangleSensor(445, 390, 80, 60);
+	barrelSensorLeft = App->physics->CreateRectangleSensor(190, 380, 80, 60);
+
 	// Sensors for the hats
 	hatSensor1 = App->physics->CreateRectangleSensor(418, 165, 40, 30);
 	hatSensor2 = App->physics->CreateRectangleSensor(422, 205, 40, 30);
@@ -338,6 +343,10 @@ void ModulePlayer::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 		if (bodyB == hatSensor1) { App->scene_intro->Hat1.Reset(); };
 		if (bodyB == hatSensor2) { App->scene_intro->Hat2.Reset(); };
 		if (bodyB == hatSensor3) { App->scene_intro->Hat3.Reset(); };
+	}
+	else if (bodyB == barrelSensorRight || bodyB == barrelSensorLeft) {
+		App->audio->PlayFx(barrelSound);
+		playerScore += collisionScore;
 	}
 	else {
 		playerScore += collisionScore;
