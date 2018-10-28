@@ -128,6 +128,19 @@ int pillar2[6] = {
 	456, 125
 };
 
+int hat[16] = {
+	400, 170,
+	400, 160,
+	405, 155,
+	430, 155,
+	435, 160,
+	435, 170,
+	430, 175,
+	405, 175,
+
+
+};
+
 ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	world = NULL;
@@ -173,6 +186,13 @@ bool ModulePhysics::Start()
 
 	CreateChain(0, 0, pillar2, 6, b2_staticBody, 0);
 
+	//hats
+
+	CreateChain(0, 0, hat, 16, b2_staticBody, 3);
+
+	CreateChain(4, 40, hat, 16, b2_staticBody, 3);
+
+	CreateChain(55, 15, hat, 16, b2_staticBody, 3);
 	//b->CreateFixture(&fixture);
 
 	return true;
