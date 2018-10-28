@@ -115,6 +115,14 @@ update_status ModulePlayer::Update()
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP) {
 		propellerJoint->EnableMotor(false);
 	}
+
+	// Death condition
+	ball->GetPosition(position.x, position.y);
+	if (position.y > SCREEN_HEIGHT) {
+		delete ball;
+		ball->body = nullptr;
+		addBall(startingPosition.x, startingPosition.y);
+	}
 	
 	//Drawing everything
 	SDL_Rect r = horse.GetCurrentFrame();
@@ -189,7 +197,6 @@ void ModulePlayer::putRightFlippers() {
 	revoluteJointDef2.enableMotor = false;
 
 	rightFlipperJoint2 = (b2RevoluteJoint*)App->physics->world->CreateJoint(&revoluteJointDef2);
-
 }
 
 void ModulePlayer::putLeftFlipper() {
